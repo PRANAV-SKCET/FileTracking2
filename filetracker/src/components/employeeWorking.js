@@ -132,7 +132,7 @@ export default function EmployeeWorking() {
     }
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
+        <div className="p-6 bg-gray-100 min-h-screen mt-12">
             <h1 className="text-2xl font-bold mb-4">Your Tasks</h1>
             {showWarning && delayedCount > 0 && (
                 <div className="bg-yellow-200 text-yellow-800 p-4 rounded-md mb-4">

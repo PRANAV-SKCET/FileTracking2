@@ -37,7 +37,7 @@ export default function Pending() {
     }
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
+        <div className="p-6 bg-gray-100 min-h-screen mt-12">
             <h1 className="text-2xl font-bold mb-4">Delayed Work</h1>
             <ul className="space-y-4">
                 {tasks.map(task => (
