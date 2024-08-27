@@ -1,10 +1,7 @@
-
-
-
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from './context';
-import OfficeNavbar from './officeNavbar'; // Import the OfficeNavbar component
+import OfficeNavbar from './officeNavbar';
 
 export default function OfficeWorking() {
     const { setIsOfficeLoggedIn } = useContext(AuthContext);
