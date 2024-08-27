@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import '../cssfolder/deleteOffice.css';
 
 function DeleteOffice() {
     const [officeId, setOfficeId] = useState('');
@@ -35,10 +34,12 @@ function DeleteOffice() {
     };
 
     return (
-        <div className="deleteOffice-container">
-            <div className="deleteOffice-formContainer">
-                <div className="deleteOffice-header">
-                    <Typography variant="h4" gutterBottom>Delete Office</Typography>
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+                <div className="mb-6 text-center">
+                    <Typography variant="h4" className="text-gray-800">
+                        Delete Office
+                    </Typography>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <TextField
@@ -49,13 +50,13 @@ function DeleteOffice() {
                         variant="outlined"
                         fullWidth
                         required
-                        className="deleteOffice-textField"
+                        className="mb-4"
                     />
-                    <Button type="submit" variant="contained" color="primary" fullWidth className="deleteOffice-button">
+                    <Button type="submit" variant="contained" color="primary" fullWidth className="bg-black text-white hover:bg-gray-800">
                         Delete Office
                     </Button>
                     {responseMessage && (
-                        <Typography variant="body1" className="deleteOffice-responseMessage">
+                        <Typography variant="body1" className="mt-4 text-center text-gray-700">
                             {responseMessage}
                         </Typography>
                     )}

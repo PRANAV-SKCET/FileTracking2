@@ -30,53 +30,53 @@ import Workload from './components/workload';
 
 function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(
-    JSON.parse(localStorage.getItem('isAdminLoggedIn')) || false
+    JSON.parse(sessionStorage.getItem('isAdminLoggedIn')) || false
   );
   const [districtId, setDistrictId] = useState(
-    localStorage.getItem('districtId') || ''
+    sessionStorage.getItem('districtId') || ''
   );
   const [isOfficeLoggedIn, setIsOfficeLoggedIn] = useState(
-    JSON.parse(localStorage.getItem('isOfficeLoggedIn')) || false
+    JSON.parse(sessionStorage.getItem('isOfficeLoggedIn')) || false
   );
   const [isEmployeeLoggedIn, setIsEmployeeLoggedIn] = useState(
-    JSON.parse(localStorage.getItem('isEmployeeLoggedIn')) || false
+    JSON.parse(sessionStorage.getItem('isEmployeeLoggedIn')) || false
   );
   const [officeId, setOfficeId] = useState(
-    localStorage.getItem('officeId') || ''
+    sessionStorage.getItem('officeId') || ''
   );
   const [employeeMail, setEmployeeMail] = useState(
-    localStorage.getItem('employeeMail') || ''
+    sessionStorage.getItem('employeeMail') || ''
   );
   const [officeMail, setOfficeMail] = useState(
-    localStorage.getItem('officeMail') || ''
+    sessionStorage.getItem('officeMail') || ''
   );
 
   useEffect(() => {
-    localStorage.setItem('isAdminLoggedIn', JSON.stringify(isAdminLoggedIn));
+    sessionStorage.setItem('isAdminLoggedIn', JSON.stringify(isAdminLoggedIn));
   }, [isAdminLoggedIn]);
 
   useEffect(() => {
-    localStorage.setItem('districtId', districtId);
+    sessionStorage.setItem('districtId', districtId);
   }, [districtId]);
 
   useEffect(() => {
-    localStorage.setItem('isOfficeLoggedIn', JSON.stringify(isOfficeLoggedIn));
+    sessionStorage.setItem('isOfficeLoggedIn', JSON.stringify(isOfficeLoggedIn));
   }, [isOfficeLoggedIn]);
 
   useEffect(() => {
-    localStorage.setItem('isEmployeeLoggedIn', JSON.stringify(isEmployeeLoggedIn));
+    sessionStorage.setItem('isEmployeeLoggedIn', JSON.stringify(isEmployeeLoggedIn));
   }, [isEmployeeLoggedIn]);
 
   useEffect(() => {
-    localStorage.setItem('officeId', officeId);
+    sessionStorage.setItem('officeId', officeId);
   }, [officeId]);
 
   useEffect(() => {
-    localStorage.setItem('employeeMail', employeeMail);
+    sessionStorage.setItem('employeeMail', employeeMail);
   }, [employeeMail]);
 
   useEffect(() => {
-    localStorage.setItem('officeMail', officeMail);
+    sessionStorage.setItem('officeMail', officeMail);
   }, [officeMail]);
 
   return (

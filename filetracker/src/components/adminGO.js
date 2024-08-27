@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../cssfolder/adminGO.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -74,53 +73,62 @@ export default function AdminGO() {
     };
 
     return (
-        <div className="admingo-container">
-            <h1 className="admingo-title">AdminGO</h1>
-            <form className="admingo-form" onSubmit={handleSubmit}>
-                <div>
-                    <label className="admingo-label">GO Number:</label>
+        <div className="p-8 bg-gray-100 min-h-screen mt-12">
+            <h1 className="text-3xl font-bold text-gray-800 mb-6">AdminGO</h1>
+            <form className="bg-white shadow-md rounded-lg p-6 mb-8 min-h-[200px]" onSubmit={handleSubmit}>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold mb-2">GO Number:</label>
                     <input
-                        className="admingo-input-text"
+                        className="w-full px-3 py-2 border border-gray-300 rounded"
                         type="text"
                         value={goNumber}
                         onChange={handleGoNumberChange}
                         required
                     />
                 </div>
-                <div>
-                    <label className="admingo-label">Upload PDF:</label>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold mb-2">Upload PDF:</label>
                     <input
-                        className="admingo-input-file"
+                        className="w-full px-3 py-2 border border-gray-300 rounded"
                         type="file"
                         accept="application/pdf"
                         onChange={handleFileChange}
                         required
                     />
-                    <br />
-                    <button className="admingo-button" type="submit">Upload</button>
                 </div>
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    type="submit"
+                >
+                    Upload
+                </button>
             </form>
-            {message && <p className="admingo-message">{message}</p>}
-            <h2 className="admingo-title">Uploaded Documents</h2>
-            <table className="admingo-go-table">
+            {message && <p className="text-center text-red-500 mb-4">{message}</p>}
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Uploaded Documents</h2>
+            <table className="min-w-full bg-white shadow-md rounded-lg border border-gray-300">
                 <thead>
-                    <tr>
-                        <th>GO Number</th>
-                        <th>Upload Date</th>
-                        <th>Actions</th>
+                    <tr className="border-b">
+                        <th className="py-2 px-4 text-left text-gray-700">GO Number</th>
+                        <th className="py-2 px-4 text-left text-gray-700">Upload Date</th>
+                        <th className="py-2 px-4 text-left text-gray-700">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {documents.map((doc) => (
-                        <tr key={doc.goNumber}>
-                            <td>{doc.goNumber}</td>
-                            <td>{formatDate(doc.date)}</td>
-                            <td>
-                                <a href={`http://localhost:8080/downloadgo/${doc.goNumber}`} download={`${doc.goNumber}.pdf`}>
+                        <tr key={doc.goNumber} className="border-b">
+                            <td className="py-2 px-4 text-gray-800">{doc.goNumber}</td>
+                            <td className="py-2 px-4 text-gray-800">{formatDate(doc.date)}</td>
+                            <td className="py-2 px-4 text-gray-800">
+                                <a href={`http://localhost:8080/downloadgo/${doc.goNumber}`} download={`${doc.goNumber}.pdf`} className="text-blue-500 hover:underline">
                                     <FontAwesomeIcon icon={faDownload} />
                                 </a>
-                                {"   |   "}
-                                <FontAwesomeIcon icon={faTrash} style={{ cursor: 'pointer' }} onClick={() => handleDelete(doc.goNumber)} />
+                                {" | "}
+                                <FontAwesomeIcon
+                                    icon={faTrash}
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => handleDelete(doc.goNumber)}
+                                    className="text-red-500 hover:text-red-700"
+                                />
                             </td>
                         </tr>
                     ))}

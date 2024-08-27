@@ -1,10 +1,8 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from './context';
-import { TextField, Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import '../cssfolder/addOffice.css'; // Ensure the correct path to your CSS file
 
 function AddOffice() {
     const { districtId } = useContext(AuthContext);
@@ -33,7 +31,7 @@ function AddOffice() {
         axios.post('http://localhost:8080/addOffice', formData)
             .then(response => {
                 setResponseMessage(response.data);
-    
+
                 if (response.data === "New Office Added") {
                     setTimeout(() => {
                         navigate("/adminWorking");
@@ -50,78 +48,71 @@ function AddOffice() {
     };
 
     return (
-        <Grid container className="addOffice-background">
-            <Grid item xs={12} sm={8} md={6} lg={4}>
-                <div className="addOffice-container">
-                <div className="addOffice-header">
-                    <Typography variant="h4" gutterBottom>
-                        <AccountBalanceIcon className="addOffice-icon" />
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+                <div className="mb-6 text-center">
+                    <h1 className="text-2xl font-semibold text-gray-800 mb-2">
+                        <AccountBalanceIcon className="text-gray-700 mr-2" />
                         Add Office
-                    </Typography>
+                    </h1>
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <TextField
-                        type="officeId"
+                    <input
+                        type="text"
                         name="officeId"
                         value={formData.officeId}
                         onChange={handleChange}
-                        label="Office Id"
-                        variant="outlined"
+                        placeholder="Office Id"
                         required
-                        className="addOffice-textField"
+                        className="mb-4 p-3 w-full border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
                     />
-                    <TextField
-                        type="officeName"
+                    <input
+                        type="text"
                         name="officeName"
                         value={formData.officeName}
                         onChange={handleChange}
-                        label="Office Name"
-                        variant="outlined"
+                        placeholder="Office Name"
                         required
-                        className="addOffice-textField"
+                        className="mb-4 p-3 w-full border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
                     />
-                    <TextField
-                        type="officeLocation"
+                    <input
+                        type="text"
                         name="officeLocation"
                         value={formData.officeLocation}
                         onChange={handleChange}
-                        label="Office Location"
-                        variant="outlined"
+                        placeholder="Office Location"
                         required
-                        className="addOffice-textField"
+                        className="mb-4 p-3 w-full border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
                     />
-                    <TextField
+                    <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        label="Email"
-                        variant="outlined"
+                        placeholder="Email"
                         required
-                        className="addOffice-textField"
+                        className="mb-4 p-3 w-full border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
                     />
-                    <TextField
+                    <input
                         type="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        label="Password"
-                        variant="outlined"
+                        placeholder="Password"
                         required
-                        className="addOffice-textField"
+                        className="mb-6 p-3 w-full border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
                     />
-                    <Button type="submit" variant="contained" color="primary" fullWidth className="addOffice-button">
+                    <button type="submit" className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors">
                         Add New Office
-                    </Button>
+                    </button>
                     {responseMessage && (
-                        <Typography variant="body1" className="addOffice-responseMessage">
+                        <p className="mt-4 text-center text-gray-700">
                             {responseMessage}
-                        </Typography>
+                        </p>
                     )}
                 </form>
-                </div>
-            </Grid>
-        </Grid>
+            </div>
+        </div>
     );
 }
 
