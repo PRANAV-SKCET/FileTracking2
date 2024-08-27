@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, Button, Grid, Typography } from '@mui/material';
+import { TextField, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete'; // Import DeleteIcon
-import '../cssfolder/deleteEmployee.css'; // Import the CSS file
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function DeleteEmployee() {
     const [employeeId, setEmployeeId] = useState('');
-    const [responseMessage, setResponseMessage] = useState('');    
+    const [responseMessage, setResponseMessage] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -23,7 +22,7 @@ function DeleteEmployee() {
                 if (response.data === "Employee Deleted") {
                     setTimeout(() => {
                         navigate("/officeWorking");
-                    }, 1500); 
+                    }, 1500);
                 } else {
                     setTimeout(() => {
                         setResponseMessage('');
@@ -36,11 +35,9 @@ function DeleteEmployee() {
     };
 
     return (
-        <Grid container justifyContent="center" alignItems="center" className="delete-employee-container">
-            <Grid item xs={12} sm={8} md={6} lg={4} className="delete-employee-form">
-                <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                    <Typography variant="h4" gutterBottom>Delete Employee</Typography>
-                </div>
+        <div className="flex justify-center items-center min-h-screen bg-white">
+            <div className="bg-black text-white shadow-lg rounded-lg p-8 w-full max-w-md">
+                <Typography variant="h4" className="text-center mb-6">Delete Employee</Typography>
                 <form onSubmit={handleSubmit}>
                     <TextField
                         name="employeeId"
@@ -51,25 +48,39 @@ function DeleteEmployee() {
                         margin="normal"
                         fullWidth
                         required
+                        className="mb-4"
+                        InputProps={{
+                            style: { color: 'black', backgroundColor: 'white' },
+                        }}
+                        InputLabelProps={{
+                            style: { color: 'black' },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'black',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'gray',
+                                },
+                            },
+                        }}
                     />
-                    <Button 
+                    <button 
                         type="submit" 
-                        variant="contained" 
-                        color="primary" 
-                        fullWidth 
-                        style={{ marginTop: '20px' }}
-                        startIcon={<DeleteIcon />} // Add the DeleteIcon here
+                        className="w-full bg-gray-800 text-white hover:bg-gray-700 py-2 rounded flex items-center justify-center"
                     >
+                        <DeleteIcon className="mr-2" />
                         Delete Employee
-                    </Button>
+                    </button>
                     {responseMessage && (
-                        <Typography variant="body1" style={{ marginTop: '10px' }}>
+                        <Typography variant="body1" className="mt-4 text-center">
                             {responseMessage}
                         </Typography>
                     )}
                 </form>
-            </Grid>
-        </Grid>
+            </div>
+        </div>
     );
 }
 

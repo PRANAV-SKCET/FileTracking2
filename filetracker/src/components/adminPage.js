@@ -47,7 +47,7 @@ export default function AdminPage() {
         <div className="min-h-screen flex flex-col bg-white">
             <Navbar />
             <div className="flex flex-grow">
-                {/* Left Half: Image */}
+               
                 <div className="hidden md:flex w-1/2 bg-cover bg-center" 
                      style={{ backgroundImage: 'url(https://t3.ftcdn.net/jpg/05/58/37/98/360_F_558379870_PYYTrOCh9jC1zuA7CWxSp0XvVFB42bGm.jpg)' }}>
                 </div>

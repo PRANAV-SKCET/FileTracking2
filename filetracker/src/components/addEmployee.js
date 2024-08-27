@@ -1,9 +1,7 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from './context';
-import { TextField, Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import '../cssfolder/addEmployee.css'; // Import the CSS file
 
 function AddEmployee() {
     const { officeId } = useContext(AuthContext);
@@ -49,75 +47,66 @@ function AddEmployee() {
     };
 
     return (
-        <Grid container justifyContent="center" alignItems="center" className="add-employee-container">
-            <Grid item xs={12} sm={8} md={6} lg={4} className="add-employee-form">
-                <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                    <Typography variant="h4" gutterBottom>Add Employee</Typography>
-                </div>
+        <div className="flex justify-center items-center h-screen bg-white">
+            <div className="w-full max-w-md bg-black p-8 rounded-lg shadow-lg">
+                <h2 className="text-center text-2xl font-bold text-white mb-6">Add Employee</h2>
                 <form onSubmit={handleSubmit}>
-                    <TextField
+                    <input
                         name="employeeId"
                         value={formData.employeeId}
                         onChange={handleChange}
-                        label="Employee Id"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
+                        placeholder="Employee Id"
+                        className="w-full p-3 mb-4 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                     />
-                    <TextField
+                    <input
                         name="employeeName"
                         value={formData.employeeName}
                         onChange={handleChange}
-                        label="Employee Name"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
+                        placeholder="Employee Name"
+                        className="w-full p-3 mb-4 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                     />
-                    <TextField
+                    <input
                         name="employeeDesignation"
                         value={formData.employeeDesignation}
                         onChange={handleChange}
-                        label="Employee Designation"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
+                        placeholder="Employee Designation"
+                        className="w-full p-3 mb-4 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                     />
-                    <TextField
+                    <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        label="Email"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
+                        placeholder="Email"
+                        className="w-full p-3 mb-4 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                     />
-                    <TextField
+                    <input
                         type="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        label="Password"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
+                        placeholder="Password"
+                        className="w-full p-3 mb-6 border border-gray-300 rounded-lg bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                     />
-                    <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '20px' }}>
+                    <button
+                        type="submit"
+                        className="w-full bg-black text-white p-3 rounded-lg hover:bg-gray-800 transition duration-300"
+                    >
                         Add New Employee
-                    </Button>
+                    </button>
                     {responseMessage && (
-                        <Typography variant="body1" style={{ marginTop: '10px' }}>
+                        <p className="mt-4 text-center text-gray-300">
                             {responseMessage}
-                        </Typography>
+                        </p>
                     )}
                 </form>
-            </Grid>
-        </Grid>
+            </div>
+        </div>
     );
 }
 

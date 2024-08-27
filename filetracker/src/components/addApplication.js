@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import { MenuItem } from '@mui/material';
 import axios from 'axios';
-import '../cssfolder/addApplication.css';
 import { AuthContext } from './context';
 
 export default function AddApplication() {
@@ -12,7 +10,7 @@ export default function AddApplication() {
     const formatDate = (date) => {
         const d = new Date(date);
         const day = String(d.getDate()).padStart(2, '0');
-        const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+        const month = String(d.getMonth() + 1).padStart(2, '0');
         const year = d.getFullYear();
         return `${day}-${month}-${year}`;
     };
@@ -41,7 +39,6 @@ export default function AddApplication() {
         try {
             const response = await axios.get(`http://localhost:8080/getApplicationTypes/${officeId}`);
             const transformedData = response.data.map(({ applicationId, applicationName }) => ({ applicationId, applicationName }));
-            console.log(transformedData);
             setApplicationTypes(transformedData);
         } catch (error) {
             console.error('Error fetching application types:', error);
@@ -69,15 +66,12 @@ export default function AddApplication() {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:8080/createApplication", applicationData);
-            // Set response to state to display it
             setResponseMessage(response.data);
 
-            // Clear response after 3 seconds
             setTimeout(() => {
                 setResponseMessage(null);
             }, 3000);
 
-            // Clear form fields
             setApplicationData({
                 applicationNumber: '',
                 applicantName: '',
@@ -92,107 +86,111 @@ export default function AddApplication() {
             });
         } catch (error) {
             console.error('Error submitting application:', error);
-            // Handle error if necessary
         }
     };
 
     return (
-        <div className="form-container">
-            <h1>Add Application</h1>
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    select
-                    label="Application Type ID"
-                    variant="outlined"
-                    name="applicationTypeId"
-                    value={applicationData.applicationTypeId}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{ classes: { input: 'textfield-input' } }}
-                    InputLabelProps={{ classes: { root: 'textfield-label' } }}
-                >
-                    {applicationTypes.map(type => (
-                        <MenuItem key={type.applicationId} value={type.applicationId}>
-                            {type.applicationId}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    label="Application Name"
-                    variant="outlined"
-                    name="applicationName"
-                    value={applicationData.applicationName}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{ classes: { input: 'textfield-input' } }}
-                    InputLabelProps={{ classes: { root: 'textfield-label' } }}
-                />
-                <TextField
-                    label="Application Number"
-                    variant="outlined"
-                    name="applicationNumber"
-                    value={applicationData.applicationNumber}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{ classes: { input: 'textfield-input' } }}
-                    InputLabelProps={{ classes: { root: 'textfield-label' } }}
-                />
-                <TextField
-                    label="Applicant Name"
-                    variant="outlined"
-                    name="applicantName"
-                    value={applicationData.applicantName}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{ classes: { input: 'textfield-input' } }}
-                    InputLabelProps={{ classes: { root: 'textfield-label' } }}
-                />
-                <TextField
-                    label="Applicant Email"
-                    variant="outlined"
-                    name="applicantMail"
-                    value={applicationData.applicantMail}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{ classes: { input: 'textfield-input' } }}
-                    InputLabelProps={{ classes: { root: 'textfield-label' } }}
-                />
-                <TextField
-                    label="Mobile Number"
-                    variant="outlined"
-                    name="applicantMobileNumber"
-                    value={applicationData.applicantMobileNumber}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{ classes: { input: 'textfield-input' } }}
-                    InputLabelProps={{ classes: { root: 'textfield-label' } }}
-                />
-                <TextField
-                    label="Address"
-                    variant="outlined"
-                    name="applicantAddress"
-                    value={applicationData.applicantAddress}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{ classes: { input: 'textfield-input' } }}
-                    InputLabelProps={{ classes: { root: 'textfield-label' } }}
-                />
-                <Button type="submit" variant="contained" color="primary">
-                    Submit
-                </Button>
-            </form>
-            {responseMessage && (
-                <div className="response-message">
-                    {responseMessage}
-                </div>
-            )}
+        <div className="flex justify-center items-center min-h-screen bg-white mt-8">
+            <div className="bg-black text-white shadow-md rounded-lg p-6 max-w-md w-full">
+                <h1 className="text-2xl font-bold text-center mb-4 text-white">Add Application</h1>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <TextField
+                        select
+                        label="Application Type ID"
+                        variant="outlined"
+                        name="applicationTypeId"
+                        value={applicationData.applicationTypeId}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        InputProps={{ style: { backgroundColor: 'white', color: 'black' } }}
+                        InputLabelProps={{ style: { color: 'gray' } }}
+                    >
+                        {applicationTypes.map(type => (
+                            <MenuItem key={type.applicationId} value={type.applicationId}>
+                                {type.applicationId}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <TextField
+                        label="Application Name"
+                        variant="outlined"
+                        name="applicationName"
+                        value={applicationData.applicationName}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        InputProps={{ style: { backgroundColor: 'white', color: 'black' } }}
+                        InputLabelProps={{ style: { color: 'gray' } }}
+                    />
+                    <TextField
+                        label="Application Number"
+                        variant="outlined"
+                        name="applicationNumber"
+                        value={applicationData.applicationNumber}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        InputProps={{ style: { backgroundColor: 'white', color: 'black' } }}
+                        InputLabelProps={{ style: { color: 'gray' } }}
+                    />
+                    <TextField
+                        label="Applicant Name"
+                        variant="outlined"
+                        name="applicantName"
+                        value={applicationData.applicantName}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        InputProps={{ style: { backgroundColor: 'white', color: 'black' } }}
+                        InputLabelProps={{ style: { color: 'gray' } }}
+                    />
+                    <TextField
+                        label="Applicant Email"
+                        variant="outlined"
+                        name="applicantMail"
+                        value={applicationData.applicantMail}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        InputProps={{ style: { backgroundColor: 'white', color: 'black' } }}
+                        InputLabelProps={{ style: { color: 'gray' } }}
+                    />
+                    <TextField
+                        label="Mobile Number"
+                        variant="outlined"
+                        name="applicantMobileNumber"
+                        value={applicationData.applicantMobileNumber}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        InputProps={{ style: { backgroundColor: 'white', color: 'black' } }}
+                        InputLabelProps={{ style: { color: 'gray' } }}
+                    />
+                    <TextField
+                        label="Address"
+                        variant="outlined"
+                        name="applicantAddress"
+                        value={applicationData.applicantAddress}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        InputProps={{ style: { backgroundColor: 'white', color: 'black' } }}
+                        InputLabelProps={{ style: { color: 'gray' } }}
+                    />
+                    <button
+                        type="submit"
+                        className="w-full py-3 rounded-lg bg-black text-white font-bold hover:bg-gray-600 transition-colors duration-300"
+                    >
+                        Submit
+                    </button>
+                </form>
+                {responseMessage && (
+                    <div className="mt-4 text-center text-green-600">
+                        {responseMessage}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
