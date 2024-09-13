@@ -45,6 +45,12 @@ export default function OfficeWorking() {
                     >
                         <h2 className="text-2xl font-semibold text-center">Rejected Application</h2>
                     </div>
+                    <div 
+                        className="p-8 bg-black text-white rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+                        onClick={() => handleCardClick('/download-report')}
+                    >
+                        <h2 className="text-2xl font-semibold text-center">Download Reports</h2>
+                    </div>
                 </div>
                 <button 
                     className="w-1/4 py-3 bg-black text-white rounded-lg font-bold hover:bg-gray-800 transition-colors duration-300 mt-8" 
