@@ -12,7 +12,7 @@ export default function AdminWorking() {
 
     function handleLogout() {
         setIsAdminLoggedIn(false);
-        navigate("/admin");
+        navigate("/");
     }
 
     return (

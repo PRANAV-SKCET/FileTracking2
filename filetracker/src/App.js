@@ -104,8 +104,8 @@ function App() {
           {isOfficeLoggedIn && <OfficeNavbar />}
           {isEmployeeLoggedIn && <EmployeeNavbar />}
           <Routes>
-            <Route path="/" element={<OpeningPage />} />
-            <Route path="/admin" element={<AdminPage />} />
+            {/* <Route path="/" element={<OpeningPage />} /> */}
+            <Route path="/" element={<AdminPage />} />
             <Route path="/office" element={<OfficePage />} />
             <Route path="/employee" element={<EmployeePage />} />
             <Route path="/monitoring" element={<Monitoring />} />

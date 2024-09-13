@@ -11,7 +11,7 @@ export default function Navbar() {
                 <ul className="nav-links flex space-x-4">
                     <li>
                         <Link 
-                            to="/admin" 
+                            to="/" 
                             className="text-sm font-medium hover:text-gray-300 transition-colors duration-300"
                         >
                             Admin Login
