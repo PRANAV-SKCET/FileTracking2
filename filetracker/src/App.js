@@ -29,6 +29,7 @@ import EmployeeGO from './components/employeeGO';
 import Workload from './components/workload';
 import DownloadReport from './components/downloadReport';
 
+
 function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(
     JSON.parse(sessionStorage.getItem('isAdminLoggedIn')) || false
@@ -132,6 +133,7 @@ function App() {
         </Router>
       </div>
     </AuthContext.Provider>
+    
   );
 }
 
