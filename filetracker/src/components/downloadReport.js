@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import { FaDownload, FaUser, FaBuilding } from 'react-icons/fa'; 
+import { AuthContext } from './context';
+import axios from 'axios';
 
 export default function DownloadReport() {
   const [selectedEmployee, setSelectedEmployee] = useState('');
-  const employees = ['John Doe', 'Jane Smith', 'Alice Johnson']; 
+  const [employees, setEmployees] = useState([]);
+  const { officeId, districtId } = useContext(AuthContext);
 
+
+  useEffect(() => {
+    async function fetchEmployees() {
+        try {
+            const response = await axios.get(`http://localhost:8080/getEmployees/${officeId}`);
+            setEmployees(response.data);
+        } catch (error) {
+            console.error('Error fetching employees:', error.message);
+        }
+    }
+
+    fetchEmployees();
+}, [officeId]);
+  
   const handleDownloadOfficeWork = () => {
     console.log("Downloading Office Pending Work...");
    
@@ -69,8 +86,8 @@ export default function DownloadReport() {
             >
               <option value="" disabled>Select an employee</option>
               {employees.map((employee) => (
-                <option key={employee} value={employee}>
-                  {employee}
+                <option key={employee.employeeId} value={employee.employeeId}>
+                  {employee.employeeName} - {employee.employeeId}
                 </option>
               ))}
             </select>
