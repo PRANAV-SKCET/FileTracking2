@@ -22,8 +22,9 @@ export default function DownloadReport() {
     fetchEmployees();
 }, [officeId]);
   
-  const handleDownloadOfficeWork = () => {
-    console.log("Downloading Office Pending Work...");
+  const handleDownloadOfficeWork = async() => {
+    const response =await axios.get(`http://localhost:8080/getPendingsForOffice/${officeId}`);
+    console.log(response.data);
    
   };
 

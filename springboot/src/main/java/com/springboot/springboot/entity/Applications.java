@@ -16,11 +16,13 @@ public class Applications {
     private String applicationStatus;
     private String applicationDate;
     private String applicationClosedDate;
+    private int officeId;
+
     public Applications() {
     }
     public Applications(String applicationNumber, String applicantName, String applicantMail,
             String applicantMobileNumber, String applicantAddress, int applicationTypeId, String applicationName,
-            String applicationStatus, String applicationDate, String applicationClosedDate) {
+            String applicationStatus, String applicationDate, String applicationClosedDate,int officeId) {
         this.applicationNumber = applicationNumber;
         this.applicantName = applicantName;
         this.applicantMail = applicantMail;
@@ -31,6 +33,7 @@ public class Applications {
         this.applicationStatus = applicationStatus;
         this.applicationDate = applicationDate;
         this.applicationClosedDate = applicationClosedDate;
+        this.officeId=officeId;
     }
     public String getApplicationNumber() {
         return applicationNumber;
@@ -91,6 +94,12 @@ public class Applications {
     }
     public void setApplicationClosedDate(String applicationClosedDate) {
         this.applicationClosedDate = applicationClosedDate;
+    }
+    public int getOfficeId() {
+        return officeId;
+    }
+    public void setOfficeId(int officeId) {
+        this.officeId = officeId;
     }
 
     

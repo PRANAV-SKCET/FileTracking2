@@ -25,7 +25,8 @@ export default function AddApplication() {
         applicationName: '',
         applicationStatus: 'opened',
         applicationDate: formatDate(new Date()),
-        applicationClosedDate: ''
+        applicationClosedDate: '',
+        officeId:officeId
     });
 
     const [applicationTypes, setApplicationTypes] = useState([]);

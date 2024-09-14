@@ -494,4 +494,11 @@ public class UserController {
     {
         goRepo.deleteById(goNumber);
     }
+
+    @GetMapping("/getPendingsForOffice/{officeId}")
+    public List<Applications> getPendingsForOffice(@PathVariable int officeId)
+    {
+        List<Applications>list = applicationsRepo.getPendingsForOffice(officeId);
+        return list;
+    }
 }

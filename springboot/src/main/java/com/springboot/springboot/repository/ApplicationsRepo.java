@@ -30,4 +30,9 @@ public interface ApplicationsRepo extends JpaRepository<Applications,String>{
     @Transactional
     @Query(value = "SELECT applicant_mail FROM applications WHERE application_number=?1", nativeQuery = true)
     public List<String> getMail(String applicationNumber);
+
+    @Modifying
+    @Transactional
+    @Query(value = "SELECT * FROM applications WHERE office_id=?1 and application_status!='Completed' ORDER BY application_type_id , application_date", nativeQuery = true)
+    public List<Applications> getPendingsForOffice(int officeId);
 }
