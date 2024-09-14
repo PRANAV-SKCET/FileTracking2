@@ -28,15 +28,16 @@ export default function DownloadReport() {
    
   };
 
-  const handleDownloadEmployeeDetails = () => {
-    console.log("Downloading Employee Details...");
-    
+  const handleDownloadEmployeeDetails = async() => {
+    const response = await axios.get(`http://localhost:8080/getEmployees/${officeId}`);
+    console.log(response.data);
   };
 
-  const handleDownloadParticularEmployeeWork = () => {
+  const handleDownloadParticularEmployeeWork = async() => {
     if (selectedEmployee) {
-      console.log(`Downloading Pending Work for ${selectedEmployee}...`);
-      // Add logic to download PDF
+        const email = selectedEmployee.replace(/[^a-zA-Z0-9]/g, "_");
+        const response =await axios.get(`http://localhost:8080/getPendingsForEmployee/${email}`);
+        console.log(response.data);
     } else {
       alert("Please select an employee first!");
     }
@@ -87,7 +88,7 @@ export default function DownloadReport() {
             >
               <option value="" disabled>Select an employee</option>
               {employees.map((employee) => (
-                <option key={employee.employeeId} value={employee.employeeId}>
+                <option key={employee.email} value={employee.email}>
                   {employee.employeeName} - {employee.employeeId}
                 </option>
               ))}

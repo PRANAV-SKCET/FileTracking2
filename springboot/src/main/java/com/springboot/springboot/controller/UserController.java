@@ -501,4 +501,15 @@ public class UserController {
         List<Applications>list = applicationsRepo.getPendingsForOffice(officeId);
         return list;
     }
+
+    @GetMapping("/getPendingsForEmployee/{email}")
+    public List<Map<String, Object>> getPendingsForEmployee(@PathVariable String email) {
+        String tableName = email;
+
+        String query = "SELECT * FROM " + tableName + "";
+
+        List<Map<String, Object>> list = jdbcTemplate.queryForList(query);
+
+        return list;
+    }
 }
