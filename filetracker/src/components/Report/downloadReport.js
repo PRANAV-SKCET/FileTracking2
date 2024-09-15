@@ -10,6 +10,8 @@ export default function DownloadReport() {
   const [selectedEmployee, setSelectedEmployee] = useState('');
   const [employees, setEmployees] = useState([]);
   const { officeId,officeName } = useContext(AuthContext);
+  const [empName,setEmpName]=useState('');
+  const [empId,setEmpId]=useState('');
 
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export default function DownloadReport() {
         try {
           const response = await axios.get(`http://localhost:8080/getPendingsForEmployee/${email}`);
          
-          individualReportPDF(officeId, response.data,officeName);
+          individualReportPDF(officeId, response.data,officeName,empId,empName);
         } catch (error) {
           console.error('Error downloading Individual Employee report:', error.message);
         }
