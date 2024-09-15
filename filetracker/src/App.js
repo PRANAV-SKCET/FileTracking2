@@ -27,7 +27,7 @@ import RejectedApplications from './components/rejectedApplication';
 import OfficeGO from './components/officeGO';
 import EmployeeGO from './components/employeeGO';
 import Workload from './components/workload';
-import DownloadReport from './components/downloadReport';
+import DownloadReport from './components/Report/downloadReport';
 
 
 function App() {
