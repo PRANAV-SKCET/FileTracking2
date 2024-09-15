@@ -1,6 +1,9 @@
 import React, { useContext, useState,useEffect } from 'react';
 import { FaDownload, FaUser, FaBuilding } from 'react-icons/fa'; 
-import { AuthContext } from './context';
+import { AuthContext } from '../context';
+import { officeReportPDF } from './officeReport';
+import { employeeDetailsPDF } from './employeeListReport';
+import { individualReportPDF } from './individualReportPDF';
 import axios from 'axios';
 
 export default function DownloadReport() {
@@ -23,21 +26,39 @@ export default function DownloadReport() {
 }, [officeId]);
   
   const handleDownloadOfficeWork = async() => {
-    const response =await axios.get(`http://localhost:8080/getPendingsForOffice/${officeId}`);
-    console.log(response.data);
+    
+    try {
+      const response = await axios.get(`http://localhost:8080/getPendingsForOffice/${officeId}`);
+      
+      officeReportPDF(officeId, response.data);
+    } catch (error) {
+      console.error('Error downloading office work report:', error.message);
+    }
    
   };
 
   const handleDownloadEmployeeDetails = async() => {
-    const response = await axios.get(`http://localhost:8080/getEmployees/${officeId}`);
-    console.log(response.data);
+    
+    try {
+      const response = await axios.get(`http://localhost:8080/getEmployees/${officeId}`);
+     
+      employeeDetailsPDF(officeId, response.data);
+    } catch (error) {
+      console.error('Error downloading Employee report:', error.message);
+    }
   };
 
   const handleDownloadParticularEmployeeWork = async() => {
     if (selectedEmployee) {
         const email = selectedEmployee.replace(/[^a-zA-Z0-9]/g, "_");
-        const response =await axios.get(`http://localhost:8080/getPendingsForEmployee/${email}`);
-        console.log(response.data);
+       
+        try {
+          const response = await axios.get(`http://localhost:8080/getPendingsForEmployee/${email}`);
+         
+          individualReportPDF(officeId, response.data);
+        } catch (error) {
+          console.error('Error downloading Individual Employee report:', error.message);
+        }
     } else {
       alert("Please select an employee first!");
     }
