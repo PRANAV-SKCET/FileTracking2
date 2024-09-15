@@ -9,7 +9,7 @@ export default function OfficePage() {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const { setIsOfficeLoggedIn, setOfficeId, setDistrictId, officeMail, setOfficeMail } = useContext(AuthContext);
+    const { setIsOfficeLoggedIn, setOfficeId, setDistrictId, officeMail, setOfficeMail,setOfficeName } = useContext(AuthContext);
 
     const handleEmailChange = (e) => {
         setOfficeMail(e.target.value);
@@ -26,6 +26,7 @@ export default function OfficePage() {
             if (response.data === true) {
                 const response2 = await axios.get(`http://localhost:8080/OfficeLoginDetails/${officeMail}/${password}`);
                 setOfficeId(response2.data.officeId);
+                setOfficeName(response2.data.officeName);
                 setDistrictId(response2.data.districtId);
                 setIsOfficeLoggedIn(true);
                 setMessage('Login successful');

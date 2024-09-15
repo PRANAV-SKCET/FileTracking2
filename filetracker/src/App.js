@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import OpeningPage from './components/openingPage';
 import './App.css';
 import { AuthContext } from './components/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -46,6 +45,9 @@ function App() {
   const [officeId, setOfficeId] = useState(
     sessionStorage.getItem('officeId') || ''
   );
+  const [officeName, setOfficeName] = useState(
+    sessionStorage.getItem('officeName') || ''
+  );
   const [employeeMail, setEmployeeMail] = useState(
     sessionStorage.getItem('employeeMail') || ''
   );
@@ -72,6 +74,9 @@ function App() {
   useEffect(() => {
     sessionStorage.setItem('officeId', officeId);
   }, [officeId]);
+  useEffect(() => {
+    sessionStorage.setItem('officeName', officeName);
+  }, [officeName]);
 
   useEffect(() => {
     sessionStorage.setItem('employeeMail', employeeMail);
@@ -97,7 +102,9 @@ function App() {
         employeeMail,
         setEmployeeMail,
         officeMail,
-        setOfficeMail
+        setOfficeMail,
+        officeName,
+        setOfficeName
       }}
     >
       <div className="App">

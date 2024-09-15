@@ -9,7 +9,7 @@ import axios from 'axios';
 export default function DownloadReport() {
   const [selectedEmployee, setSelectedEmployee] = useState('');
   const [employees, setEmployees] = useState([]);
-  const { officeId, districtId } = useContext(AuthContext);
+  const { officeId,officeName } = useContext(AuthContext);
 
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function DownloadReport() {
     try {
       const response = await axios.get(`http://localhost:8080/getPendingsForOffice/${officeId}`);
       
-      officeReportPDF(officeId, response.data);
+      officeReportPDF(officeId, response.data,officeName);
     } catch (error) {
       console.error('Error downloading office work report:', error.message);
     }
@@ -42,7 +42,7 @@ export default function DownloadReport() {
     try {
       const response = await axios.get(`http://localhost:8080/getEmployees/${officeId}`);
      
-      employeeDetailsPDF(officeId, response.data);
+      employeeDetailsPDF(officeId, response.data,officeName);
     } catch (error) {
       console.error('Error downloading Employee report:', error.message);
     }
@@ -55,7 +55,7 @@ export default function DownloadReport() {
         try {
           const response = await axios.get(`http://localhost:8080/getPendingsForEmployee/${email}`);
          
-          individualReportPDF(officeId, response.data);
+          individualReportPDF(officeId, response.data,officeName);
         } catch (error) {
           console.error('Error downloading Individual Employee report:', error.message);
         }
