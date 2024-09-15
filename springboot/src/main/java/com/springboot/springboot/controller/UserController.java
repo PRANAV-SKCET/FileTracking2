@@ -370,6 +370,9 @@ public class UserController {
         int officeId = employee.get(0).getOfficeId();
         String insert = "INSERT into rejected (application_number,comment,date_of_rejection,reason_for_rejection,date_of_opening,employee_id,office_id) VALUES(?,?,?,?,?,?,?)";
         jdbcTemplate.update(insert,ApplicationNumber,"",LocalDate.now().toString(),comment,"",employeeId,officeId);
+
+        String sql2 = "UPDATE applications SET application_status = 'Rejected' where application_number=?";
+        jdbcTemplate.update(sql2,ApplicationNumber);
     }
 
     @GetMapping("/delayed/{employeeMail}")
@@ -463,6 +466,9 @@ public class UserController {
         );
 
         rejectedRepo.deleteById(applicationNumber);
+
+        String sql2 = "UPDATE applications SET application_status = 'Reopened' where application_number=?";
+        jdbcTemplate.update(sql2,applicationNumber);
     }
 
     @PostMapping("/goupload")

@@ -18,7 +18,7 @@ export const officeReportPDF = (officeId, responseData) => {
 
   
   const openedCount = responseData.filter(item => item.applicationStatus === 'opened').length;
-  const rejectedCount = responseData.filter(item => item.applicationStatus === 'rejected').length;
+  const rejectedCount = responseData.filter(item => item.applicationStatus === 'Rejected').length;
 
   doc.setFontSize(12);
   doc.text('Summary:', 14, 50);
