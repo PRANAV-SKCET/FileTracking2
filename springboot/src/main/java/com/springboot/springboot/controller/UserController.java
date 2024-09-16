@@ -3,6 +3,9 @@ package com.springboot.springboot.controller;
 import java.util.List;
 import java.util.Map;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -224,14 +227,16 @@ public class UserController {
         {
             return "Application Already Exist";
         }
-        createApplicationTable(applications.getApplicationNumber(),applications.getApplicationTypeId());
+        int days = createApplicationTable(applications.getApplicationNumber(),applications.getApplicationTypeId());
+        applications.setMaxDays(days);
         applicationsRepo.save(applications);
         return "Application added Successfully";
     }
 
-    private void createApplicationTable(String applicationNumber,int applicationId) {
+    private int createApplicationTable(String applicationNumber,int applicationId) 
+    {
         String tableName = applicationNumber;
-    
+        int days=0;
         String createTableSql = "CREATE TABLE " + tableName + " (" +
                                 "`Step_No` INT AUTO_INCREMENT PRIMARY KEY, " +
                                 "`Assigned_To` VARCHAR(255), " +
@@ -258,8 +263,11 @@ public class UserController {
                                 LocalDate.now().toString(),
                                 step.get("no_of_days"),
                                 "");
+                                
+            days=days+(int)step.get("no_of_days");
         }
         insertFirstStepIntoEmployeeTable(steps.get(0),applicationNumber);
+        return days;
     }
     public void insertFirstStepIntoEmployeeTable(Map<String, Object> firstStep,String applicationNumber) {
         
@@ -506,6 +514,49 @@ public class UserController {
     {
         List<Applications>list = applicationsRepo.getPendingsForOffice(officeId);
         return list;
+    }
+    
+    @GetMapping("/getDelayedForOffice/{officeId}")
+    public List<Applications> getDelayedForOffice(@PathVariable int officeId)
+    {
+        List<Applications>applications = applicationsRepo.getPendingsForOffice(officeId);
+        LocalDate currentDate = LocalDate.now();
+        List<Applications> delayedApplications = new ArrayList<>();
+
+        for (Applications app : applications) {
+            String createdDateString = app.getApplicationDate(); 
+            LocalDate createdDate = LocalDate.parse(createdDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+            int maxDays = app.getMaxDays();
+
+            LocalDate dueDate = calculateDueDateExcludingWeekends(createdDate, maxDays);
+
+            if (currentDate.isAfter(dueDate)) {
+                delayedApplications.add(app);
+            }
+        }
+
+        return delayedApplications;
+    }
+
+    private LocalDate calculateDueDateExcludingWeekends(LocalDate startDate, int maxDays) {
+        int addedDays = 0;
+        LocalDate dueDate = startDate;
+
+        while (addedDays < maxDays) {
+            dueDate = dueDate.plusDays(1);
+            
+            if (!isWeekend(dueDate)) {
+                addedDays++;
+            }
+        }
+
+        return dueDate;
+    }
+
+    private boolean isWeekend(LocalDate date) {
+        DayOfWeek day = date.getDayOfWeek();
+        return day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY;
     }
 
     @GetMapping("/getPendingsForEmployee/{email}")
