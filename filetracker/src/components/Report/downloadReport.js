@@ -7,7 +7,7 @@ import { individualReportPDF } from './individualReportPDF';
 import axios from 'axios';
 
 export default function DownloadReport() {
-  const [selectedEmployee, setSelectedEmployee] = useState('');
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [employees, setEmployees] = useState([]);
   const { officeId,officeName } = useContext(AuthContext);
   const [empName,setEmpName]=useState('');
@@ -19,6 +19,7 @@ export default function DownloadReport() {
         try {
             const response = await axios.get(`http://localhost:8080/getEmployees/${officeId}`);
             setEmployees(response.data);
+            console.log(response.data);
         } catch (error) {
             console.error('Error fetching employees:', error.message);
         }
@@ -52,12 +53,15 @@ export default function DownloadReport() {
 
   const handleDownloadParticularEmployeeWork = async() => {
     if (selectedEmployee) {
-        const email = selectedEmployee.replace(/[^a-zA-Z0-9]/g, "_");
+       
+        const { employeeId, employeeName, email } = selectedEmployee;
+        const modifiedEmail = email.replace(/[^a-zA-Z0-9]/g, "_");
+        console.log("selected:",email," ",employeeName," ",employeeId);
        
         try {
-          const response = await axios.get(`http://localhost:8080/getPendingsForEmployee/${email}`);
+          const response = await axios.get(`http://localhost:8080/getPendingsForEmployee/${modifiedEmail}`);
          
-          individualReportPDF(officeId, response.data,officeName,empId,empName);
+          individualReportPDF(officeId, response.data,officeName,employeeId,employeeName);
         } catch (error) {
           console.error('Error downloading Individual Employee report:', error.message);
         }
@@ -104,10 +108,13 @@ export default function DownloadReport() {
             Select Employee:
           </label>
           <div className="relative mb-4">
-            <select 
+          <select
               className="block w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-3 pr-8 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"
-              value={selectedEmployee}
-              onChange={(e) => setSelectedEmployee(e.target.value)}
+              value={selectedEmployee ? selectedEmployee.email : ''}
+              onChange={(e) => {
+                const selectedOption = employees.find(employee => employee.email === e.target.value);
+                setSelectedEmployee(selectedOption);
+              }}
             >
               <option value="" disabled>Select an employee</option>
               {employees.map((employee) => (
