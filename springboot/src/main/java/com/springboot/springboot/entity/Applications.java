@@ -17,12 +17,13 @@ public class Applications {
     private String applicationDate;
     private String applicationClosedDate;
     private int officeId;
+    private int maxDays;
 
     public Applications() {
     }
     public Applications(String applicationNumber, String applicantName, String applicantMail,
             String applicantMobileNumber, String applicantAddress, int applicationTypeId, String applicationName,
-            String applicationStatus, String applicationDate, String applicationClosedDate,int officeId) {
+            String applicationStatus, String applicationDate, String applicationClosedDate,int officeId,int maxDays) {
         this.applicationNumber = applicationNumber;
         this.applicantName = applicantName;
         this.applicantMail = applicantMail;
@@ -34,6 +35,7 @@ public class Applications {
         this.applicationDate = applicationDate;
         this.applicationClosedDate = applicationClosedDate;
         this.officeId=officeId;
+        this.maxDays=maxDays;
     }
     public String getApplicationNumber() {
         return applicationNumber;
@@ -100,6 +102,12 @@ public class Applications {
     }
     public void setOfficeId(int officeId) {
         this.officeId = officeId;
+    }
+    public int getMaxDays() {
+        return maxDays;
+    }
+    public void setMaxDays(int maxDays) {
+        this.maxDays = maxDays;
     }
 
     
