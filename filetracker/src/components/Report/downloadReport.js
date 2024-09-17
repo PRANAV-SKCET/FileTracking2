@@ -10,8 +10,6 @@ export default function DownloadReport() {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [employees, setEmployees] = useState([]);
   const { officeId,officeName } = useContext(AuthContext);
-  const [empName,setEmpName]=useState('');
-  const [empId,setEmpId]=useState('');
 
 
   useEffect(() => {

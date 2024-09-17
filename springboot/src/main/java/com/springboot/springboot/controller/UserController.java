@@ -515,9 +515,37 @@ public class UserController {
         List<Applications>list = applicationsRepo.getPendingsForOffice(officeId);
         return list;
     }
+
+    @GetMapping("/getPendingsCountForOffice/{officeId}")
+    public int getPendingsCountForOffice(@PathVariable int officeId)
+    {
+        List<Applications>list = applicationsRepo.getPendingsForOffice(officeId);
+        return list.size();
+    }
+
+    @GetMapping("/getAllApplicationsForOffice/{officeId}")
+    public int getAllApplicationsForOffice(@PathVariable int officeId)
+    {
+        List<Applications>list = applicationsRepo.getAllApplicationsForOffice(officeId);
+        return list.size();
+    }
+
+    @GetMapping("/getRejectedApplicationsForOffice/{officeId}")
+    public int getRejectedForOffice(@PathVariable int officeId)
+    {
+        List<Applications>list = applicationsRepo.getRejectedApplicationsForOffice(officeId);
+        return list.size();
+    }
+
+    @GetMapping("/getEmployeeCount/{officeId}")
+    public int getEmployeeCount(@PathVariable int officeId)
+    {
+        List<EmployeeUsers>list = employeeUsersRepo.findEmployeeByOffice(officeId);
+        return list.size();
+    }
     
     @GetMapping("/getDelayedForOffice/{officeId}")
-    public List<Applications> getDelayedForOffice(@PathVariable int officeId)
+    public int getDelayedForOffice(@PathVariable int officeId)
     {
         List<Applications>applications = applicationsRepo.getPendingsForOffice(officeId);
         LocalDate currentDate = LocalDate.now();
@@ -536,7 +564,7 @@ public class UserController {
             }
         }
 
-        return delayedApplications;
+        return delayedApplications.size();
     }
 
     private LocalDate calculateDueDateExcludingWeekends(LocalDate startDate, int maxDays) {

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState,useEffect } from 'react';
 import { AuthContext } from './context';
 import OfficeNavbar from './officeNavbar';
 import { FaUserTie, FaFileAlt, FaTasks, FaDownload, FaRegThumbsDown, FaClock } from 'react-icons/fa';
@@ -7,10 +7,43 @@ import { BsPersonFillAdd } from "react-icons/bs";
 import { TiUserDelete } from "react-icons/ti";
 import { RiFileCloseFill } from "react-icons/ri";
 import { VscFeedback } from "react-icons/vsc";
+import axios from 'axios';
 
 export default function OfficeWorking() {
     const { setIsOfficeLoggedIn } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [totalEmployees,setTotalEmployees] = useState(0);
+    const [totalApplications,setTotalApplications] = useState(0);
+    const [pendingApplications,setPendingApplications] = useState(0);
+    const [rejectedApplications,setRejectedApplications] = useState(0);
+    const [processApplications,setProcessApplications] = useState(0);
+    const { officeId } = useContext(AuthContext);
+
+    useEffect(() => {
+        async function fetch() {
+            try {
+                const response = await axios.get(`http://localhost:8080/getDelayedForOffice/${officeId}`);
+                setPendingApplications(response.data);
+
+                const response2 = await axios.get(`http://localhost:8080/getAllApplicationsForOffice/${officeId}`);
+                setTotalApplications(response2.data);
+
+                const response3 = await axios.get(`http://localhost:8080/getRejectedApplicationsForOffice/${officeId}`);
+                setRejectedApplications(response3.data);
+
+                const response4 = await axios.get(`http://localhost:8080/getEmployeeCount/${officeId}`);
+                setTotalEmployees(response4.data);
+
+                const response5 = await axios.get(`http://localhost:8080/getPendingsCountForOffice/${officeId}`);
+                setProcessApplications(response5.data);
+
+            } catch (error) {
+                console.error('Error fetching employees:', error.message);
+            }
+        }
+    
+        fetch();
+    }, [officeId]);
 
     const handleLogout = () => {
         setIsOfficeLoggedIn(false);
@@ -33,25 +66,25 @@ export default function OfficeWorking() {
                         {
                             icon: FaUserTie,
                             title: 'Total Employees',
-                            value: '150',
+                            value: totalEmployees,
                             description: 'With various designations',
                         },
                         {
                             icon: FaFileAlt,
                             title: 'Total Applications',
-                            value: '500',
+                            value: totalApplications,
                             description: 'Across all types',
                         },
                         {
                             icon: FaClock,
                             title: 'Pending Applications',
-                            value: '120',
+                            value: pendingApplications,
                             description: 'Currently in progress',
                         },
                         {
                             icon: FaRegThumbsDown,
                             title: 'Rejected Applications',
-                            value: '30',
+                            value: rejectedApplications,
                             description: 'Marked as rejected',
                         },
                     ].map((item, idx) => (
@@ -79,7 +112,7 @@ export default function OfficeWorking() {
                         {
                             icon: FaTasks,
                             title: 'In-Progress Applications',
-                            value: '200',
+                            value: processApplications-rejectedApplications,
                             description: 'Currently being processed',
                         },
                         {
